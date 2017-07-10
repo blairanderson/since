@@ -1,0 +1,34 @@
+{
+  "name": "since",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start -p 8000"
+  },
+  "dependencies": {
+    "moment": "^2.18.1",
+    "next": "^3.0.1-beta.13",
+    "node-fetch": "latest",
+    "react": "^15.6.1",
+    "react-datepicker": "^0.49.0",
+    "react-dom": "^15.6.1"
+  },
+  "author": "blair anderson",
+  "license": "MIT",
+  "description": "## How to use",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blairanderson/since.git"
+  },
+  "keywords": [
+    "moment",
+    "next"
+  ],
+  "bugs": {
+    "url": "https://github.com/blairanderson/since/issues"
+  },
+  "homepage": "https://github.com/blairanderson/since#readme"
+}
