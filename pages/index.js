@@ -1,5 +1,6 @@
 import Layout from '../components/MyLayout.js';
 import Documentation from '../components/Documentation';
+import Popular from '../components/Popular';
 import { logEvent } from '../components/Analytics';
 import moment from 'moment';
 import { Component } from 'react';
@@ -26,44 +27,28 @@ export default class extends React.Component {
     const unit = this.props.unit || 'days';
     const unitDisplay = this.upcaseFirst(unit);
     const diff = date && moment().diff(date, unit, false);
-    let header = null;
+    const absDiff = diff && Math.abs(diff);
+    const sinceUntil = diff > 0 ? 'Since' : 'Until';
+    let header = (
+      <h3>
+        Try <a href={`?date=2017-06-29`}>days since 2017-06-29</a>
+      </h3>
+    );
 
     if (date) {
       header = (
-        <div>
-          <h1
-            title={`${diff} days since ${date.format('dddd, MMMM Do YYYY')}`}
-            className="near-black"
-          >
-            <div className="f1 fw6">{diff} {unitDisplay}</div>
-
-            <div className="f3 f1-ns fw2 pa2">Since</div>
-            <div className="f3 f1-ns fw2 pa2 bg-near-black near-white">
-              {date.format('dddd, MMMM Do YYYY')}
-            </div>
-          </h1>
-          <div className="measure-narrow center tl">
-            <label className="f6 b db mb2">Select a Date:</label>
-            <input
-              type="date"
-              name="date"
-              className="input-reset ba b--black-20 pa2 mb2 db w-100"
-              defaultValue={date && date.format('YYYY-MM-DD')}
-              onChange={e => {
-                window.location.search = `date=${e.target.value}`;
-              }}
-            />
+        <h1
+          title={`${absDiff} ${unitDisplay} ${sinceUntil} ${date.format(
+            'dddd, MMMM Do YYYY'
+          )}`}
+          className="near-black"
+        >
+          <div className="f1 fw6">{absDiff} {unitDisplay}</div>
+          <div className="f3 f1-ns fw2 pa2">{sinceUntil}</div>
+          <div className="f3 f1-ns fw2 pa2 bg-near-black near-white">
+            {date.format('dddd, MMMM Do YYYY')}
           </div>
-        </div>
-      );
-    } else {
-      header = (
-        <h3>
-          Try{' '}
-          <a href={`?date=2017-06-29`}>
-            days since 2017-06-29
-          </a>
-        </h3>
+        </h1>
       );
     }
 
@@ -71,8 +56,8 @@ export default class extends React.Component {
       <Layout>
         <Head>
           <title>
-            Next | Moment{date
-              ? ` : ${unitDisplay} Since ${date.format('YYYY-MM-DD')}`
+            Next | Moment{!!date
+              ? ` : ${unitDisplay} ${sinceUntil} ${date.format('YYYY-MM-DD')}`
               : ' : Date Calculator'}
           </title>
           <meta charSet="utf-8" />
@@ -86,6 +71,17 @@ export default class extends React.Component {
           />
         </Head>
         {header}
+        <div className="measure-narrow center tl">
+          <label className="f6 b db mb2">Select a Date:</label>
+          <input
+            type="date"
+            name="date"
+            className="input-reset ba b--black-20 pa2 mb2 db w-100"
+            defaultValue={date && date.format('YYYY-MM-DD')}
+            onChange={e => (window.location.search = `date=${e.target.value}`)}
+          />
+        </div>
+        <Popular />
         <Documentation />
       </Layout>
     );
