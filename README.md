@@ -2,7 +2,7 @@
 
 ## How to use
 
-Try [2017-6-29](https://since.now.sh/?date=2017-6-29)
+Try [2017-06-29](https://since.now.sh/?date=2017-06-29)
 
 ### deploying
 
